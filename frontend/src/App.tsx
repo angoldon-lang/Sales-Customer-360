@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { DataQuality } from './pages/DataQuality';
+import { DataImport } from './pages/DataImport';
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
                 <div className="text-2xl font-bold text-blue-600">💼 Sales 360</div>
               </div>
               <div className="flex gap-6">
+                <Link to="/import" className="text-gray-700 hover:text-blue-600 font-medium">
+                  Import
+                </Link>
                 <Link to="/data-quality" className="text-gray-700 hover:text-blue-600 font-medium">
                   Data Quality
                 </Link>
@@ -33,6 +37,7 @@ function App() {
 
         {/* Routes */}
         <Routes>
+          <Route path="/import" element={<DataImport />} />
           <Route path="/data-quality" element={<DataQuality />} />
           <Route
             path="/"
