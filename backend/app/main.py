@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.config import get_settings
 from app.database import engine, Base, get_db
 from app import models
-from app.routers import customers, data_quality, services, opportunities, conversion
+from app.routers import customers, data_quality, services, opportunities, conversion, auth
 
 settings = get_settings()
 
@@ -25,6 +25,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(customers.router, prefix="/api/customers", tags=["customers"])
 app.include_router(data_quality.router, prefix="/api/data-quality", tags=["data_quality"])
 app.include_router(services.router, prefix="/api/services", tags=["services"])
