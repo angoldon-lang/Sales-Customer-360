@@ -4,7 +4,8 @@ from .service import Service, ServiceCategory, ServiceLevel
 from .contract import Contract, ContractRenewal
 from .opportunity import Opportunity, OpportunityStatus
 from .user import User, Role, Permission
-from .data_quality import DataQualityTask, DataQualityValidation
+from .data_quality import DataQualityTask, DataQualityValidation, DataQualityStatus
+from .conversion import ConversionRule, ConversionLog
 
 __all__ = [
     "Customer",
@@ -25,4 +26,7 @@ __all__ = [
     "Permission",
     "DataQualityTask",
     "DataQualityValidation",
+    "DataQualityStatus",
+    "ConversionRule",
+    "ConversionLog",
 ]

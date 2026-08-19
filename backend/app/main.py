@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.config import get_settings
 from app.database import engine, Base, get_db
 from app import models
-from app.routers import customers, data_quality, services, opportunities
+from app.routers import customers, data_quality, services, opportunities, conversion
 
 settings = get_settings()
 
@@ -29,6 +29,7 @@ app.include_router(customers.router, prefix="/api/customers", tags=["customers"]
 app.include_router(data_quality.router, prefix="/api/data-quality", tags=["data_quality"])
 app.include_router(services.router, prefix="/api/services", tags=["services"])
 app.include_router(opportunities.router, prefix="/api/opportunities", tags=["opportunities"])
+app.include_router(conversion.router, prefix="/api/conversion", tags=["conversion"])
 
 
 @app.get("/")
