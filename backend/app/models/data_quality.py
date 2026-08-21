@@ -51,7 +51,7 @@ class DataQualityTask(Base):
     validated_by_id = Column(Integer, ForeignKey("users.id"))
     validated_at = Column(DateTime)
 
-    metadata = Column(JSON, default={})
+    custom_metadata = Column(JSON, default={})
 
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

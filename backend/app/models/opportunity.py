@@ -41,7 +41,7 @@ class Opportunity(Base):
     estimated_margin = Column(Integer)
 
     notes = Column(Text)
-    metadata = Column(JSON, default={})
+    custom_metadata = Column(JSON, default={})
 
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

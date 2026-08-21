@@ -27,7 +27,7 @@ class Contract(Base):
 
     vendor_contact = Column(String(255))
     notes = Column(Text)
-    metadata = Column(JSON, default={})
+    custom_metadata = Column(JSON, default={})
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

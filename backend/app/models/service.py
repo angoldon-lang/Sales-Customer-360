@@ -67,7 +67,7 @@ class Service(Base):
     is_active = Column(Boolean, default=True)
     is_recommended = Column(Boolean, default=False)
 
-    metadata = Column(JSON, default={})
+    custom_metadata = Column(JSON, default={})
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
