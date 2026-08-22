@@ -11,10 +11,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user"]
+      test: ["CMD-SHELL", "pg_isready -U user -d sales_customer_360"]
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
   backend:
     build:
@@ -34,6 +35,7 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     stdin_open: true
     tty: true
+    restart: unless-stopped
 
   frontend:
     build:
