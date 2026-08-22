@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15-alpine
@@ -19,7 +17,9 @@ services:
       retries: 5
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: sales-customer-360-api
     depends_on:
       postgres:
@@ -32,9 +32,13 @@ services:
     volumes:
       - ./backend:/app
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    stdin_open: true
+    tty: true
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: sales-customer-360-web
     ports:
       - "3000:3000"
@@ -44,6 +48,8 @@ services:
     environment:
       REACT_APP_API_URL: http://localhost:8000
     command: npm start
+    stdin_open: true
+    tty: true
 
 volumes:
   postgres_data:
