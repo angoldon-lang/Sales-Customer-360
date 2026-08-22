@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
-from typing import List
+from typing import List, Optional
 from datetime import datetime
+from pydantic import BaseModel
 
 from app.database import get_db
 from app.models.data_quality import DataQualityTask, DataQualityStatus, DataQualityValidation
@@ -11,26 +12,27 @@ from app.models.customer import Customer
 router = APIRouter()
 
 
-class DataQualityTaskCreate:
-    def __init__(self, task_type: str, extracted_customer: str, amount: int | None = None,
-                 sale_date: datetime | None = None, source_document: str | None = None):
-        self.task_type = task_type
-        self.extracted_customer = extracted_customer
-        self.amount = amount
-        self.sale_date = sale_date
-        self.source_document = source_document
+class DataQualityTaskCreate(BaseModel):
+    task_type: str
+    extracted_customer: str
+    amount: Optional[int] = None
+    sale_date: Optional[datetime] = None
+    source_document: Optional[str] = None
+
+    class Config:
+        from_attributes = True
 
 
-class DataQualityTaskUpdate:
-    def __init__(self, corrected_customer: str | None = None, corrected_product: str | None = None,
-                 corrected_vendor: str | None = None, status: DataQualityStatus | None = None,
-                 validation_notes: str | None = None, sales_notes: str | None = None):
-        self.corrected_customer = corrected_customer
-        self.corrected_product = corrected_product
-        self.corrected_vendor = corrected_vendor
-        self.status = status
-        self.validation_notes = validation_notes
-        self.sales_notes = sales_notes
+class DataQualityTaskUpdate(BaseModel):
+    corrected_customer: Optional[str] = None
+    corrected_product: Optional[str] = None
+    corrected_vendor: Optional[str] = None
+    status: Optional[str] = None
+    validation_notes: Optional[str] = None
+    sales_notes: Optional[str] = None
+
+    class Config:
+        from_attributes = True
 
 
 @router.get("/tasks")
