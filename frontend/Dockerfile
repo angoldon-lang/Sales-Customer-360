@@ -2,16 +2,20 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-ENV NODE_ENV=development
+ENV NODE_ENV=development \
+    CI=false
 
 # Install build dependencies
 RUN apk add --no-cache python3 make g++
 
-# Remove old lock file if it exists and install fresh
-RUN rm -f package-lock.json
+# Copy package files
+COPY package.json package-lock.json* ./
 
-COPY package.json ./
-RUN npm install --legacy-peer-deps
+# Clean install with legacy peer deps
+RUN npm cache clean --force && \
+    rm -rf node_modules package-lock.json && \
+    npm install --legacy-peer-deps --no-save && \
+    npm cache clean --force
 
 COPY . .
 
