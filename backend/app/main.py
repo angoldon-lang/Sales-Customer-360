@@ -3,13 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
-from app.database import engine, Base, get_db
+from app.database import engine, Base, get_db, init_db
 from app import models
-from app.routers import customers, data_quality, services, opportunities, conversion, auth, import_data
 
 settings = get_settings()
 
-Base.metadata.create_all(bind=engine)
+# Initialize database
+init_db()
 
 app = FastAPI(
     title=settings.app_name,
@@ -25,13 +25,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
-app.include_router(customers.router, prefix="/api/customers", tags=["customers"])
-app.include_router(data_quality.router, prefix="/api/data-quality", tags=["data_quality"])
-app.include_router(services.router, prefix="/api/services", tags=["services"])
-app.include_router(opportunities.router, prefix="/api/opportunities", tags=["opportunities"])
-app.include_router(conversion.router, prefix="/api/conversion", tags=["conversion"])
-app.include_router(import_data.router, prefix="/api/import", tags=["import"])
+# Import routers after app creation to avoid circular imports
+from app.routers import companies, clusters, news, reports, importer
+
+app.include_router(importer.router, prefix="/api/import", tags=["import"])
+app.include_router(companies.router, prefix="/api/companies", tags=["companies"])
+app.include_router(clusters.router, prefix="/api/clusters", tags=["clusters"])
+app.include_router(news.router, prefix="/api/news", tags=["news"])
+app.include_router(reports.router, prefix="/api/reports", tags=["reports"])
 
 
 @app.get("/")
@@ -39,7 +40,7 @@ def read_root():
     return {
         "name": settings.app_name,
         "version": settings.version,
-        "status": "running"
+        "status": "running",
     }
 
 
