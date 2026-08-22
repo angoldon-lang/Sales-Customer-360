@@ -28,6 +28,7 @@ services:
     environment:
       DATABASE_URL: postgresql://user:password@postgres:5432/sales_customer_360
       DEBUG: "True"
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
     ports:
       - "8000:8000"
     volumes:

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DataImporter } from '../components/DataImporter';
+import { AITextExtractor } from '../components/AITextExtractor';
+import { AIUsageCounter } from '../components/AIUsageCounter';
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
@@ -39,6 +41,11 @@ export const DataImport: React.FC = () => {
           </p>
         </div>
 
+        {/* AI Usage Counter */}
+        <div className="mb-8">
+          <AIUsageCounter />
+        </div>
+
         {/* Stats */}
         {stats && !loading && (
           <div className="grid grid-cols-3 gap-4 mb-8">
@@ -62,7 +69,8 @@ export const DataImport: React.FC = () => {
         {/* Main Content */}
         <div className="grid grid-cols-2 gap-6">
           {/* Importer */}
-          <div>
+          <div className="space-y-6">
+            <AITextExtractor />
             <DataImporter />
           </div>
 

@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
 
+    anthropic_api_key: str = os.getenv("ANTHROPIC_API_KEY", "")
+
     cors_origins: list[str] = [
         "http://localhost:3000",
         "http://localhost:8000",

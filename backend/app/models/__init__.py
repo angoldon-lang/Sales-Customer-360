@@ -6,6 +6,7 @@ from .opportunity import Opportunity, OpportunityStatus
 from .user import User, Role, Permission
 from .data_quality import DataQualityTask, DataQualityValidation, DataQualityStatus
 from .conversion import ConversionRule, ConversionLog
+from .ai_usage import AIUsageLog
 
 __all__ = [
     "Customer",
@@ -29,4 +30,5 @@ __all__ = [
     "DataQualityStatus",
     "ConversionRule",
     "ConversionLog",
+    "AIUsageLog",
 ]
